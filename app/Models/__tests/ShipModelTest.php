@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Models\ShipModel;
 use App\Exceptions\EmptyCoordinatesArrayException;
 use App\Exceptions\InvalidCoordinatesException;
+use App\Exceptions\InvalidShipOrientationException;
 
 class ShipModelTest extends TestCase
 {
@@ -32,16 +33,13 @@ class ShipModelTest extends TestCase
         $ship = new ShipModel(['Swann', 4], [2,4]);
     }
 
-    public function testShipModelWithInvalidCoordinates(): void {
+    /**
+     * @dataProvider invalidCoordinates
+     * This is basically saying: "testShipModelWithInvalidCoordinates" will use a data provider
+     */
+    public function testShipModelWithInvalidCoordinates($bow, $stern): void {
         $this->expectException(InvalidCoordinatesException::class);
-        $ship = new ShipModel([-2, 4], [2,4]);
-        $ship2 = new ShipModel([42, 4], [2,4]);
-        $ship3 = new ShipModel([2, 44], [2,4]);
-        $ship4 = new ShipModel([2, -4], [2,4]);
-        $ship5 = new ShipModel([1, 5], [-2,4]);
-        $ship6 = new ShipModel([1, 4], [72,4]);
-        $ship7 = new ShipModel([2, 4], [6,-4]);
-        $ship8 = new ShipModel([2, 4], [6,54]);
+        $ship = new ShipModel($bow, $stern);
     }
 
     public function testShipModelWithValidCoordinates(): void {
@@ -60,9 +58,47 @@ class ShipModelTest extends TestCase
     }
 
     public function testShipModelLength(): void {
-        $expected = 2;
-        $ship = new ShipModel([2,2], [4,4]);
+        $expected = 5;
+        // $ship = new ShipModel([2,6], [6,6]);
+        $ship = new ShipModel([6,6], [2,6]);
         $this->assertEquals($ship->getLength(), $expected);
+    }
+
+    public function testShipModelOrientationDiagonal(): void {
+        $this->expectException(InvalidShipOrientationException::class);
+        $ship = new ShipModel([2,4], [3,5]);
+    }
+
+    /**
+     * @dataProvider shipOrientation
+     * This is basically saying: "testShipModelOrientation" will use a data provider
+     */
+    public function testShipModelValidOrientation($bow, $stern, $expected): void {
+        $ship = new ShipModel($bow, $stern);
+        $this->assertEquals($ship->getOrientation(), $expected);
+    }
+
+
+    public function invalidCoordinates()
+    {
+        return array(
+            "negative x-bow" => array([-2,4], [2,4]),
+            array([422,4], [2,4]),
+            array([2,44], [2,4]),
+            array([2,-4], [2,4]),
+            array([1,5], [-2,4]),
+            array([1,4], [72,4]),
+            array([2,4], [6,-4]),  
+            array([2,4], [6,54]),
+        );
+    }
+
+    public function shipOrientation()
+    {
+        return array(
+            "horizontal orientation" => array([2,4], [4,4], ShipModel::HORIZONTAL_ORIENTATION),
+            "vertical orientation" => array([1,2], [1,1], ShipModel::VERTICAL_ORIENTATION),
+        );
     }
 
 }
