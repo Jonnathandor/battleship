@@ -6,11 +6,19 @@ namespace App\Models;
 
 class BoardModel
 {
-    public const X = 10; 
-    public const Y = 10;
+    private int $x; 
+    private int $y;
 
-    // function __construct(?int $x = 10, ?int $y = 10) {
-    //     $this->x = $bow ?? 10;
-    //     $this->y = $stern ?? 10;
-    // }
+    function __construct(int $x, int $y) {
+        $this->x = abs($x);
+        $this->y = abs($y);
+    }
+
+    public function getX():int {
+        return $this->x;
+    }
+
+    public function getY():int {
+        return $this->y;
+    }
 }

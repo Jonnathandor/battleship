@@ -59,7 +59,6 @@ class ShipModelTest extends TestCase
 
     public function testShipModelLength(): void {
         $expected = 5;
-        // $ship = new ShipModel([2,6], [6,6]);
         $ship = new ShipModel([6,6], [2,6]);
         $this->assertEquals($ship->getLength(), $expected);
     }

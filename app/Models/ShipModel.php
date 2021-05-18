@@ -60,7 +60,7 @@ class ShipModel
         return $this->stern;
     }
 
-    function getLength():float{
+    function getLength():int{
         // $difference = sqrt(pow(($this->stern[0] - $this->bow[0]), 2) + pow(($this->stern[1] - $this->bow[1]), 2));
 
         // if is vertical make subsctraction from Ys
