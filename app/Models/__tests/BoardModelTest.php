@@ -24,17 +24,58 @@ class BoardModelTest extends TestCase
         $board = new BoardModel('',5);
     }
 
-
-    public function testBoardModelInstantiationWithNegativeArguments(): void {
-        $board = new BoardModel(-5, -5);
-        $expectedX = 5;
-        $expectedY = 5;
+    /**
+     * @dataProvider negativeBoardDimentions
+     */
+    public function testBoardModelInstantiationWithNegativeArguments($x, $y, $expectedX, $expectedY): void {
+        $board = new BoardModel($x, $y);
+ 
         $this->assertEquals($board->getX(), $expectedX);
         $this->assertEquals($board->getY(), $expectedY);
     }
 
-//     public function testBoardModelInstantiationWithOnlyYSide(): void {
-//         $board = new BoardModel(null, 5);
-//         $this->assertInstanceOf(BoardModel::class, $board);
-//     }
+    /**
+     * @dataProvider missingBoardParams
+     */
+    public function testBoardModelInstantiationWithOnlyYOrXSide($x, $y, $expectedX, $expectedY): void {
+        $board = new BoardModel($x, $y);
+ 
+        $this->assertEquals($board->getX(), $expectedX);
+        $this->assertEquals($board->getY(), $expectedY);
+    }
+
+    /**
+     * @dataProvider zeroValueBoardParams
+     */
+    public function testBoardModelInstantiationWithZeroAsArguments($x, $y, $expectedX, $expectedY): void {
+        $board = new BoardModel($x, $y);
+ 
+        $this->assertEquals($board->getX(), $expectedX);
+        $this->assertEquals($board->getY(), $expectedY);
+    }
+
+    public function negativeBoardDimentions()
+    {
+        return array(
+            array(-5, -5, 5, 5),
+            array(-5, -15, 5, 15),
+            array(-15, -5, 15, 5)
+        );
+    }
+
+    public function missingBoardParams()
+    {
+        return array(
+            array(null, 10, 10, 10),
+            array(10, null, 10, 10)
+        );
+    }
+
+    public function zeroValueBoardParams()
+    {
+        return array(
+            array(0, 10 , 10, 10),
+            array(10, 0, 10, 10)
+        );
+    }
 }
