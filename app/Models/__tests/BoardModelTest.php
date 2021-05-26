@@ -9,10 +9,10 @@ use App\Models\BoardModel;
 
 class BoardModelTest extends TestCase
 {
-    public function testEmptyBoardModelInstantiation(): void {
-        $this->expectException(\ArgumentCountError::class);
-        $board = new BoardModel();
-   }
+//     public function testEmptyBoardModelInstantiation(): void {
+//         $this->expectException(\ArgumentCountError::class);
+//         $board = new BoardModel();
+//    }
 
    public function testBoardModelInstantiation(): void {
         $board = new BoardModel(5,5);
@@ -52,6 +52,14 @@ class BoardModelTest extends TestCase
  
         $this->assertEquals($board->getX(), $expectedX);
         $this->assertEquals($board->getY(), $expectedY);
+    }
+
+    public function testToJSONRepresentation(): void {
+        // { "x": 10, "y": 10 }
+        $arr = array('x' => 10, 'y' => 10);
+        $expected  = json_encode($arr);
+        $board = new BoardModel(10, 10);
+        $this->assertEquals($expected, $board->toJSON());
     }
 
     public function negativeBoardDimentions()

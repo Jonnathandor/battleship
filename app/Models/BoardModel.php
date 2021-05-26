@@ -29,4 +29,10 @@ class BoardModel
     public function getY():int {
         return abs($this->y);
     }
+
+    public function toJSON(): string {
+        $arr = array('x' => $this->getX(), 'y' => $this->getY());
+
+        return json_encode($arr);
+    }
 }

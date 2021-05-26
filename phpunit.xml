@@ -8,6 +8,7 @@
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
             <directory suffix="Test.php">./app/Models/__tests</directory>
+            <directory suffix="Test.php">./app/Http/Controllers/__tests</directory>
         </testsuite>
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>
