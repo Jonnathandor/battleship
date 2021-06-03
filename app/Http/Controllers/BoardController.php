@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\BoardModel;
 
 use Illuminate\Routing\Controller as BaseController;
+// use Illuminate\Http\Request; 
 
 class BoardController extends BaseController
 {
@@ -11,8 +12,12 @@ class BoardController extends BaseController
         return 'Hello World';
     }
 
-    public function createBoard(int $x, int $y){
-        $board = new BoardModel($x, $y);
+    // why should we use those parameters if the arguments are comming from the client
+    // What about resourceful routes?
+    // public function createBoard($x, $y){
+    public function createBoard(){
+        $board = new BoardModel(10, 10);
+        // Why postman receives an empty object? 
         return json_encode($board);
     }
 }

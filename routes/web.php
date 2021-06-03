@@ -18,5 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+// Get board dimentions? 
 Route::get('/board', [BoardController::class, 'helloWorld']);
+
+Route::get('/createboard', [BoardController::class, 'createBoard']);
