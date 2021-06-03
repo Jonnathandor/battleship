@@ -3,11 +3,16 @@
 declare(strict_types=1);
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 
-class BoardModel
+class BoardModel extends Model
 {
-    private int $x; 
-    private int $y;
+    // public int $x; 
+    // public int $y;
+    protected $table = 'board';
+    protected $fillable = [
+        'x', 'y',
+    ];
 
     function __construct(int $x = null, int $y = null) {
         if($x === 0){
@@ -30,9 +35,9 @@ class BoardModel
         return abs($this->y);
     }
 
-    public function toJSON(): string {
-        $arr = array('x' => $this->getX(), 'y' => $this->getY());
+    // public function toJSON(): string {
+    //     $arr = array('x' => $this->getX(), 'y' => $this->getY());
 
-        return json_encode($arr);
-    }
+    //     return json_encode($arr);
+    // }
 }

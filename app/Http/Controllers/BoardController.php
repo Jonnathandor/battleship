@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 use App\Models\BoardModel;
 
 use Illuminate\Routing\Controller as BaseController;
-// use Illuminate\Http\Request; 
+use Illuminate\Http\Request; 
 
 class BoardController extends BaseController
 {
     public function helloWorld():string {
-        return 'Hello World';
+        return csrf_token();
     }
 
-    // why should we use those parameters if the arguments are comming from the client
-    // What about resourceful routes?
-    // public function createBoard($x, $y){
-    public function createBoard(){
-        $board = new BoardModel(10, 10);
-        // Why postman receives an empty object? 
-        // $board->save(); does laravel understand that I want to save this on the board table that was created with my migration?
-        return json_encode($board);
+    public function createBoard(Request $request){
+
+        // check the has method: https://laravel.com/api/5.5/Illuminate/Http/Request.html
+        //middleware goes above
+        $x = $request->input('x');
+        $y = $request->input('y');
+
+        $board = new BoardModel($x, $y);
+        // dd($board);
+        $board->save(); 
+        return $board->toJSON();
     }
 }

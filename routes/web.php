@@ -21,7 +21,7 @@ Route::get('/', function () {
 // Get board dimentions? 
 Route::get('/board', [BoardController::class, 'helloWorld']);
 
-Route::get('/createboard', [BoardController::class, 'createBoard']);
+Route::post('/createboard', [BoardController::class, 'createBoard']);
 
 // create user 
 
