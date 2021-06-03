@@ -22,3 +22,13 @@ Route::get('/', function () {
 Route::get('/board', [BoardController::class, 'helloWorld']);
 
 Route::get('/createboard', [BoardController::class, 'createBoard']);
+
+// create user 
+
+// get user (id)
+
+// get ships (user id)
+
+// update ship (id)
+
+// get ship (id)
