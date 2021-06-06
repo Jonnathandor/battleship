@@ -24,11 +24,12 @@ class BoardControllerTest extends TestCase
     {
         parent::setUp(); 
         $this->boardController = new BoardController();
+        
         $this->boardModel = new BoardModel();
     }
 
-    public function testCreateBoard(): void {
-        $expected  = $this->boardModel->toJSON();
-        $this->assertEquals($expected, $this->boardController->createBoard());
-    }
+    // public function testCreateBoard(): void {ß
+    //     $expected  = $this->boardModel->toJSON();
+    //     $this->assertEquals($expected, $this->boardController->createBoard());
+    // }
 }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 use App\Models\BoardModel;
 
+
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request; 
 
