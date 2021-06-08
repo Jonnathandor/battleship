@@ -16,11 +16,13 @@ class CheckBoardDimentions
      */
     public function handle(Request $request, Closure $next)
     {
-        $x = $request->input('x');
-        $y = $request->input('y');
+        $x = $request->input('x', 'is_not_defined'); // the second param acts like a default
+        $y = $request->input('y', 'is_not_defined');
 
-        if($x < 10 || $y < 10){
-            dd('nope');
+        // empty will check for empty strings, null or undefined
+        if(empty($x) || empty($y)){
+            // dd('nope');
+            abort(405, "Mising params in the request");
         }
 
         return $next($request);
